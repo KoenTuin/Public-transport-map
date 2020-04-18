@@ -30,40 +30,69 @@ public class DijkstraShortestPath extends AbstractPathSearch {
 
         while (!priorityQueue.isEmpty()) {
             int vertex = priorityQueue.delMin();
-//            if (vertex == endIndex) {
-//                pathTo(vertex);
-//                break;
-//            }
+            nodesVisited.add(graph.getStation(vertex));
+            if (vertex == endIndex){
+                return;
+            }
             relax(vertex);
         }
     }
 
-    private void relax(int fromVertexIndex) {
-        for (int toStationIndex : graph.getAdjacentVertices(fromVertexIndex)) {
-            nodesVisited.add(graph.getStation(toStationIndex)); //may add same station multiple times
-            Connection w = graph.getConnection(fromVertexIndex, toStationIndex);
-
-            if (w.getWeight() == 0) {
-                System.out.println();
+    private void relax(int v) {
+        for (int e : graph.getAdjacentVertices(v)) {
+            Connection to = graph.getConnection(v, e);
+            int w = graph.getIndexOfStationByName(to.getTo().getStationName());
+            if (distTo[w] > distTo[v] + to.getWeight()) {
+                distTo[w] = distTo[v] + to.getWeight();
+                edgeTo[w] = e;
+                if (priorityQueue.contains(w)) priorityQueue.changeKey(w, distTo[w]);
+                else priorityQueue.insert(w, distTo[w]);
             }
-
-            if (distTo[toStationIndex] > distTo[fromVertexIndex] + w.getWeight()) {
-                distTo[toStationIndex] = distTo[fromVertexIndex] + w.getWeight();
-                edgeTo[toStationIndex] = toStationIndex;
-
-                if (priorityQueue.contains(toStationIndex)) {
-                    priorityQueue.changeKey(toStationIndex, distTo[toStationIndex]);
-                } else {
-                    priorityQueue.insert(toStationIndex, distTo[toStationIndex]);
-                }
-            }
-            if (toStationIndex == endIndex) {
-                System.out.println(distTo[endIndex] + w.getWeight());
-                break;
-            }
-
         }
     }
+
+
+//    @Override
+//    public void search() {
+//        priorityQueue.insert(startIndex, 0.0);
+//
+//        while (!priorityQueue.isEmpty()) {
+//            int vertex = priorityQueue.delMin();
+////            if (vertex == endIndex) {
+////                pathTo(vertex);
+////                break;
+////            }
+//            relax(vertex);
+//        }
+//    }
+
+
+//    private void relax(int fromVertexIndex) {
+//        for (int toStationIndex : graph.getAdjacentVertices(fromVertexIndex)) {
+//            nodesVisited.add(graph.getStation(toStationIndex)); //may add same station multiple times
+//            Connection w = graph.getConnection(fromVertexIndex, toStationIndex);
+//
+//            if (w.getWeight() == 0) {
+//                System.out.println();
+//            }
+//
+//            if (distTo[toStationIndex] > distTo[fromVertexIndex] + w.getWeight()) {
+//                distTo[toStationIndex] = distTo[fromVertexIndex] + w.getWeight();
+//                edgeTo[toStationIndex] = toStationIndex;
+//
+//                if (priorityQueue.contains(toStationIndex)) {
+//                    priorityQueue.changeKey(toStationIndex, distTo[toStationIndex]);
+//                } else {
+//                    priorityQueue.insert(toStationIndex, distTo[toStationIndex]);
+//                }
+//            }
+//            if (toStationIndex == endIndex) {
+//                System.out.println(distTo[endIndex] + w.getWeight());
+//                break;
+//            }
+//
+//        }
+//    }
 
     @Override
     public boolean hasPathTo(int vertex) {

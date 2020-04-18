@@ -92,14 +92,19 @@ public class TransportGraphLauncher {
 
         String[] redLine = {"red", "metro", "Haven", "Marken", "Steigerplein", "Centrum", "Meridiaan", "Dukdalf", "Oostvaarders"};
         double[] redLineWeights = {4.5, 4.7, 6.1, 3.5, 5.4, 5.6};
+        int[] redLineLocation = {14, 1, 12, 3, 10, 5, 8, 8, 6, 9, 3, 10, 0, 11};
         String[] blueLine = {"blue", "metro", "Trojelaan", "Coltrane Cirkel", "Meridiaan", "Robijnpark", "Violetplantsoen"};
         double[] blueLineWeights = {6.0, 5.3, 5.1, 3.3};
+        int[] blueLineLocation = {9, 3, 7, 6, 6, 9, 6, 12, 5, 14};
         String[] purpleLine = {"purple", "metro", "Grote Sluis", "Grootzeil", "Coltrane Cirkel", "Centrum", "Swingstraat"};
         double[] purpleLineWeights = {6.2, 5.2, 3.8, 3.6};
+        int[] purpleLineLocation = {2, 3, 4, 6, 7, 6, 8, 8, 10, 9};
         String[] greenLine = {"green", "metro", "Ymeerdijk", "Trojelaan", "Steigerplein", "Swingstraat", "Bachgracht", "Nobelplein"};
         double[] greenLineWeights = {5.0, 3.7, 6.9, 3.9, 3.4};
+        int[] greenLineLocation = {9, 0, 9, 3, 10, 5, 10, 9, 11, 11, 12, 13};
         String[] yellowLine = {"yellow", "bus", "Grote Sluis", "Ymeerdijk", "Haven", "Nobelplein", "Violetplantsoen", "Oostvaarders", "Grote Sluis"};
         double[] yellowLineWeights = {26, 19, 37, 25, 22, 28};
+        int[] yellowLineLocation = {2, 3, 9, 0, 14, 1, 12, 13, 5, 14, 0, 11, 2, 3};
 
 //        double sum = 0;
 //        for (double weight : redLineWeights) {
@@ -132,9 +137,15 @@ public class TransportGraphLauncher {
         transportGraph.addWeights(greenLine, greenLineWeights);
         transportGraph.addWeights(yellowLine, yellowLineWeights);
 
+        transportGraph.addLocations(redLine, redLineLocation);
+        transportGraph.addLocations(blueLine, blueLineLocation);
+        transportGraph.addLocations(purpleLine, purpleLineLocation);
+        transportGraph.addLocations(greenLine, greenLineLocation);
+        transportGraph.addLocations(yellowLine, yellowLineLocation);
+
 //        Uncomment to test the builder:
-        System.out.println(transportGraph);
-        String from = "Steigerplein";
+//        System.out.println(transportGraph);
+        String from = "Meridiaan";
         String to = "Grote Sluis";
 
 //        Uncommented to test the DepthFirstPath algorithm

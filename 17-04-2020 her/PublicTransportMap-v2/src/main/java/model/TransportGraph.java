@@ -94,6 +94,17 @@ public class TransportGraph {
         System.out.println();
     }
 
+    public void addLocations(String[] lineData, int[] stationLocation){
+        for (int i = 2, locationIndex = 0; i < lineData.length; i++, locationIndex++) {
+            int x = stationLocation[locationIndex*2];
+            int y = stationLocation[(locationIndex*2)+1];
+            Location location = new Location(x, y);
+            Station station = stationList.get(getIndexOfStationByName(lineData[i]));
+            station.setLocation(location);
+//            System.out.println("Location: " + lineData[i] + " " + x + ", " + y);
+        }
+    }
+
     public List<Integer> getAdjacentVertices(int index) {
         return adjacencyLists[index];
     }
@@ -229,6 +240,7 @@ public class TransportGraph {
 
             return this;
         }
+
 
         /**
          * Method that builds the graph.
