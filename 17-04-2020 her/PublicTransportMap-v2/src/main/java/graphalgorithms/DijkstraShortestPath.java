@@ -2,8 +2,10 @@ package graphalgorithms;
 
 import model.Connection;
 import model.IndexMinPQ;
+import model.Station;
 import model.TransportGraph;
 
+import java.util.List;
 import java.util.PriorityQueue;
 
 public class DijkstraShortestPath extends AbstractPathSearch {
@@ -13,9 +15,8 @@ public class DijkstraShortestPath extends AbstractPathSearch {
 
     public DijkstraShortestPath(TransportGraph graph, String start, String end) {
         super(graph, start, end);
-
         int numberOfStations = graph.getNumberOfStations();
-        edgeTo = new int[numberOfStations];
+//        edgeTo = new int[numberOfStations];
         distTo = new double[numberOfStations];
         priorityQueue = new IndexMinPQ<>(numberOfStations);
 
@@ -25,16 +26,47 @@ public class DijkstraShortestPath extends AbstractPathSearch {
         distTo[startIndex] = 0.0;
 
     }
-
     @Override
     public void search() {
-        priorityQueue.insert(startIndex, 0.0);
+        // relax vertices in order of distance from s
+        priorityQueue = new IndexMinPQ<>(graph.getNumberOfStations());
+        priorityQueue.insert(startIndex, distTo[startIndex]);
+        while (!priorityQueue.isEmpty()) {
+            int v = priorityQueue.delMin();
+            nodesVisited.add(graph.getStation(v));
+//            nodesVisitedAmount++;
+            for (Integer vertex : graph.getAdjacentVertices(v)) {
+                relax(graph.getConnection(v, vertex));
+            }
 
-        while (!priorityQueue.isEmpty()){
-            System.out.println("priorityQueue = " + priorityQueue.size());
-            relax(priorityQueue.delMin());
         }
+
+//        pathWeight = distTo[endIndex];
         pathTo(endIndex);
+    }
+    private void relax(Connection connection) {
+        int v = graph.getIndexOfStationByName(connection.getFrom().getStationName()), w = graph.
+                getIndexOfStationByName(connection.getTo().getStationName());
+        System.out.println(v+" from = " + v + " to: " + w);
+        if (distTo[w] > distTo[v] + connection.getWeight()) {
+            distTo[w] = distTo[v] + connection.getWeight();
+            edgeTo[w] = v;
+            if (priorityQueue.contains(w)) {
+                priorityQueue.decreaseKey(w, distTo[w]);
+            } else {
+                priorityQueue.insert(w, distTo[w]);
+            }
+        }
+    }
+//Own Code_________________________
+//    @Override
+//    public void search() {
+//        priorityQueue.insert(startIndex, distTo[startIndex]);
+//        while (!priorityQueue.isEmpty()){
+//            relax(priorityQueue.delMin());
+//        }
+//        pathTo(startIndex);
+
 //        while (!priorityQueue.isEmpty()) {
 //
 //            int vertex = priorityQueue.delMin();
@@ -51,23 +83,25 @@ public class DijkstraShortestPath extends AbstractPathSearch {
 //
 //        }
 //        pathTo(endIndex);
-    }
-
-    private void relax(int v) {
-        for (int e : graph.getAdjacentVertices(v)) {
-            Connection to = graph.getConnection(v, e);
-            System.out.println("Aanliggende Station: " + to.getTo());
-            int vertex = graph.getIndexOfStationByName(to.getFrom().getStationName());
-            int w = graph.getIndexOfStationByName(to.getTo().getStationName());
-            System.out.println(v+" from = " + vertex + " to: " + w);
-            if (distTo[w] > distTo[v] + to.getWeight()) {
-                distTo[w] = distTo[v] + to.getWeight();
-                edgeTo[w] = e;
-                if (priorityQueue.contains(w)) priorityQueue.changeKey(w, distTo[w]);
-                else priorityQueue.insert(w, distTo[w]);
-            }
-        }
-    }
+//    }
+//own code __________________________
+//    private void relax(int v) {
+//        nodesVisited.add(graph.getStation(v));
+//        for (int e : graph.getAdjacentVertices(v)) {
+//            Connection connection = graph.getConnection(v, e);
+//
+//            System.out.println("Aanliggende Station: " + connection.getTo());
+//            int vertex = graph.getIndexOfStationByName(connection.getFrom().getStationName());
+//            int w = graph.getIndexOfStationByName(connection.getTo().getStationName());
+//            System.out.println(v + " from = " + vertex + " to: " + w);
+//            if (distTo[w] > distTo[v] + connection.getWeight()) {
+//                distTo[w] = distTo[v] + connection.getWeight();
+//                edgeTo[w] = e;
+//                if (priorityQueue.contains(w)) priorityQueue.changeKey(w, distTo[w]);
+//                else priorityQueue.insert(w, distTo[w]);
+//            }
+//        }
+//    }
 
 
 //    @Override
@@ -120,11 +154,23 @@ public class DijkstraShortestPath extends AbstractPathSearch {
     public double getTotalWeight() {
         double totalWeight = 0;
 
-        for (double distTo : distTo) {
-            if (distTo != Double.POSITIVE_INFINITY) {
-                totalWeight += distTo;
+        for (int i = 0; i < nodesInPath.size(); i++) {
+            if (i++ > nodesInPath.size()) {
+                break;
             }
+            Station to = nodesInPath.get(i);
+            Station from = nodesInPath.get(i++);
+            Connection c = new Connection(to, from);
+            totalWeight += c.getWeight();
         }
+
+
+
+//        for (double distTo : distTo) {
+//            if (distTo != Double.POSITIVE_INFINITY) {
+//                totalWeight += distTo;
+//            }
+//        }
 
         return totalWeight;
     }

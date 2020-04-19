@@ -148,7 +148,7 @@ public class TransportGraphLauncher {
         String from = "Dukdalf";
         String to = "Grote Sluis";
 
-//        Uncommented to test the DepthFirstPath algorithm
+////        Uncommented to test the DepthFirstPath algorithm
 //        DepthFirstPath dfpTest = new DepthFirstPath(transportGraph, from, to);
 //        dfpTest.search();
 //        System.out.println(dfpTest);
