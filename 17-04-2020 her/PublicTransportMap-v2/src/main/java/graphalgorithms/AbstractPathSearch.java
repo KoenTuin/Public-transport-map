@@ -68,14 +68,14 @@ public abstract class AbstractPathSearch {
         verticesInPath = new LinkedList<>();
 
         for (int x = vertex; x != startIndex; x = edgeTo[x]) {
-            verticesInPath.addFirst(x);
+            verticesInPath.push(x);
         }
 
-        verticesInPath.addFirst(startIndex); // path starts from startIndex
+        verticesInPath.push(startIndex); // path starts from startIndex
 
         nodesInPath = new LinkedList<>();
         for (Integer stationIndex : verticesInPath) {
-            nodesInPath.add(graph.getStationList().get(stationIndex));
+            nodesInPath.add(graph.getStation(stationIndex));
         }
 
         countTransfers();

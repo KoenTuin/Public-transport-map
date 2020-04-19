@@ -145,7 +145,7 @@ public class TransportGraphLauncher {
 
 //        Uncomment to test the builder:
 //        System.out.println(transportGraph);
-        String from = "Meridiaan";
+        String from = "Dukdalf";
         String to = "Grote Sluis";
 
 //        Uncommented to test the DepthFirstPath algorithm

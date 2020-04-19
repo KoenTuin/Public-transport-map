@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a188c9f-fef6-4290-ba74-8afd566fa905" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/TransportGraphLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/TransportGraphLauncher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/graphalgorithms/AbstractPathSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/graphalgorithms/AbstractPathSearch.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/graphalgorithms/DijkstraShortestPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/graphalgorithms/DijkstraShortestPath.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Station.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Station.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/TransportGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/TransportGraph.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/controller/TransportGraphLauncher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/TransportGraphLauncher.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -115,7 +113,7 @@
       <workItem from="1586465933630" duration="567000" />
       <workItem from="1586872694170" duration="1708000" />
       <workItem from="1587115326210" duration="322000" />
-      <workItem from="1587116552126" duration="20038000" />
+      <workItem from="1587116552126" duration="26909000" />
     </task>
     <servers />
   </component>
@@ -132,5 +130,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/graphalgorithms/AbstractPathSearch.java</url>
+          <line>77</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
